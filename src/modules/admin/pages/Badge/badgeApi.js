@@ -1,6 +1,6 @@
-import { rootApi } from "../../../../app/rootApi";
+import { api } from "../../../../app/api";
 
-export const BadgeApi = rootApi.injectEndpoints({
+export const BadgeApi = api.injectEndpoints({
 	endpoints: (builder) => ({
 		getBadgeList: builder.mutation({
 			query: (body) => {

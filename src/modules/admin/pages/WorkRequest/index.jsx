@@ -30,13 +30,13 @@ const WorkRequest = () => {
 						Home
 					</LinkText>
 
-					<Typography color="text.primary">Badge Points</Typography>
+					<Typography color="text.primary">Work Request</Typography>
 				</Breadcrumbs>
 			</Box>
 			<StyledBox>
 				{/* Title */}
 				<Stack direction={"row"} alignItems="center" justifyContent={"space-between"}>
-					<StyledPageTitle variant="h6">Points</StyledPageTitle>
+					<StyledPageTitle variant="h6">Work Request</StyledPageTitle>
 					<Button variant="outlined" color="info" startIcon={<AddCircleIcon />}>
 						Add
 					</Button>

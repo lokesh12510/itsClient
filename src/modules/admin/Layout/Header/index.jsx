@@ -21,6 +21,7 @@ import palette from "../../../../themes/palette";
 import { logOut, selectCurrentUser } from "../../pages/Auth/authSlice";
 import { adminUrls } from "../../urls";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const pages = [
 	{ title: "Project", path: adminUrls.project },
@@ -30,6 +31,7 @@ const pages = [
 ];
 
 const Header = () => {
+	const location = useLocation();
 	const [anchorElNav, setAnchorElNav] = React.useState(null);
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -99,7 +101,7 @@ const Header = () => {
 						>
 							{pages.map((page) => (
 								<MenuItem
-									key={page}
+									key={page.title}
 									onClick={handleCloseNavMenu}
 									component={Link}
 									to={page.path}
@@ -128,9 +130,11 @@ const Header = () => {
 					>
 						{pages.map((page) => (
 							<Button
+								variant={location.pathname === page.path ? "contained" : "text"}
+								color="info"
 								component={Link}
 								to={page.path}
-								key={page}
+								key={page.title}
 								onClick={handleCloseNavMenu}
 								sx={{ my: 2, color: "white", display: "block" }}
 							>

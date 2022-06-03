@@ -8,10 +8,7 @@ import { useImperativeHandle } from "react";
 import { useState } from "react";
 import { forwardRef } from "react";
 import { StyledBtn, StyledDialog } from "../../../../themes/GlobalStyles";
-import {
-	useEditProjectByIDMutation,
-	useProjectListMutation,
-} from "./projectApi";
+import { useEditProjectByIDMutation } from "./projectApi";
 
 const AddModal = (props, ref) => {
 	const [modalState, setModalState] = useState(false);
@@ -19,38 +16,29 @@ const AddModal = (props, ref) => {
 	const [selectedItem, setSelectedItem] = useState(null);
 
 	// project Api
-	const [projectList] = useProjectListMutation();
 
-	const [editProjectById, { data, isLoading, isSuccess, isError }] =
-		useEditProjectByIDMutation();
+	const [editProjectById] = useEditProjectByIDMutation();
 
 	useImperativeHandle(ref, () => ({
 		openModal: (item) => {
-			console.log(item);
 			setSelectedItem(item);
 			setModalState(true);
 		},
 	}));
 
 	const handleChange = (e) => {
-		console.log(e.target.name, e.target.value);
 		setSelectedItem((item) => ({ ...item, [e.target.name]: e.target.value }));
-
-		console.log(selectedItem);
 	};
 
 	if (!modalState) return null;
 
-	const handleEdit = () => {
+	const handleEdit = async () => {
 		const formData = new FormData();
 
 		formData.append("project_name", selectedItem.project_name);
 		formData.append("client_name", selectedItem.client_name);
 
-		editProjectById(formData);
-
-		projectList({ page: 1, perPage: 10, filterText: "" });
-
+		await editProjectById(formData).unwrap();
 		setModalState(false);
 	};
 
@@ -61,7 +49,7 @@ const AddModal = (props, ref) => {
 			minWidth="md"
 			fullWidth
 		>
-			<DialogTitle>Edit Project</DialogTitle>
+			<DialogTitle>Add Project</DialogTitle>
 			<Divider />
 			<DialogContent style={{ paddingBlock: 30 }}>
 				<Stack spacing={3}>
@@ -69,13 +57,13 @@ const AddModal = (props, ref) => {
 						name="project_name"
 						label="Project Name"
 						onChange={(e) => handleChange(e)}
-						value=""
+						value={selectedItem.project_name}
 					/>
 					<TextField
 						name="client_name"
 						label="Client Name"
 						onChange={(e) => handleChange(e)}
-						value=""
+						value={selectedItem.client_name}
 					/>
 				</Stack>
 			</DialogContent>

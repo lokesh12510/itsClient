@@ -8,10 +8,7 @@ import { useImperativeHandle } from "react";
 import { useState } from "react";
 import { forwardRef } from "react";
 import { StyledBtn, StyledDialog } from "../../../../themes/GlobalStyles";
-import {
-	useEditProjectByIDMutation,
-	useProjectListMutation,
-} from "./projectApi";
+import { useEditProjectByIDMutation } from "./projectApi";
 
 const EditModal = (props, ref) => {
 	const [modalState, setModalState] = useState(false);
@@ -19,7 +16,6 @@ const EditModal = (props, ref) => {
 	const [selectedItem, setSelectedItem] = useState(null);
 
 	// project Api
-	const [projectList] = useProjectListMutation();
 
 	const [editProjectById, { data, isLoading, isSuccess, isError }] =
 		useEditProjectByIDMutation();
@@ -52,8 +48,6 @@ const EditModal = (props, ref) => {
 		formData.append("updatedAt", new Date());
 
 		editProjectById(formData);
-
-		projectList({ page: 1, perPage: 10, filterText: "" });
 
 		setModalState(false);
 	};

@@ -1,6 +1,0 @@
-
-export const AUTH_SET_DATA = 'AUTH_SET_DATA';
-export const AUTH_LOGOUT = 'AUTH_LOGOUT';
-export const AUTH_UPDATE_USER = 'AUTH_UPDATE_USER';
-
-export const UPDATE_CLIENT_DATA = 'UPDATE_CLIENT_DATA';

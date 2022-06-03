@@ -1,6 +1,6 @@
-import { rootApi } from "../../../../app/rootApi";
+import { api } from "../../../../app/api";
 
-export const ClientApi = rootApi.injectEndpoints({
+export const ClientApi = api.injectEndpoints({
 	endpoints: (builder) => ({
 		getClientList: builder.mutation({
 			query: (body) => {

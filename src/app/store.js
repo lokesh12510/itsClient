@@ -3,12 +3,12 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer } from "redux-persist";
 import authReducer from "../modules/admin/pages/Auth/authSlice";
 import { authApi } from "../modules/admin/pages/Auth/adminApi";
-import { rootApi } from "./rootApi";
+import { api } from "./api";
 
 const reducers = combineReducers({
 	auth: authReducer,
 	[authApi.reducerPath]: authApi.reducer,
-	[rootApi.reducerPath]: rootApi.reducer,
+	[api.reducerPath]: api.reducer,
 });
 
 // store user details in localStorage
@@ -23,5 +23,8 @@ export const store = configureStore({
 	reducer: persistedReducer,
 	devTools: process.env.NODE_ENV !== "production",
 	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware({ serializableCheck: false }).concat(authApi.middleware),
+		getDefaultMiddleware({ serializableCheck: false }).concat(
+			authApi.middleware,
+			api.middleware
+		),
 });
